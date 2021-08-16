@@ -9,7 +9,6 @@ import by.valvik.bannermanagement.service.GenericService;
 import by.valvik.bannermanagement.view.View;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.springframework.http.HttpHeaders.USER_AGENT;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("api/bid")
@@ -63,11 +63,11 @@ public class BidController {
         return requestedCategoryBanner.map(banner -> {
 
                                           Request request = Request.builder()
-                                                  .banner(banner)
-                                                  .userAgent(userAgent)
-                                                  .ipAddress(ipAddress)
-                                                  .date(LocalDateTime.now())
-                                                  .build();
+                                                                   .banner(banner)
+                                                                   .userAgent(userAgent)
+                                                                   .ipAddress(ipAddress)
+                                                                   .date(LocalDateTime.now())
+                                                                   .build();
 
                                           requestService.create(request);
 
@@ -80,9 +80,9 @@ public class BidController {
 
                                           Category requestedCategory = categoryService.getCategoryByReqName(category);
 
-                                          headers.set(CATEGORY_NAME_HEADER, requestedCategory.getName());
+                                          headers.add(CATEGORY_NAME_HEADER, requestedCategory.getName());
 
-                                          return new ResponseEntity<>(headers, HttpStatus.NO_CONTENT);
+                                          return new ResponseEntity<>(headers, NO_CONTENT);
 
                                       });
 

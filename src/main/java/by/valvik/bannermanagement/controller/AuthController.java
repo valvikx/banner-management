@@ -3,7 +3,6 @@ package by.valvik.bannermanagement.controller;
 import by.valvik.bannermanagement.security.domain.Admin;
 import by.valvik.bannermanagement.security.jwt.JwtProvider;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +16,7 @@ import javax.validation.Valid;
 
 import static by.valvik.bannermanagement.security.constant.SecurityConstant.AUTHORIZATION_PREFIX;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("api/auth")
@@ -47,7 +47,7 @@ public class AuthController {
 
         httpHeaders.add(AUTHORIZATION, AUTHORIZATION_PREFIX + jwt);
 
-        return new ResponseEntity<>(httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(httpHeaders, OK);
 
     }
 

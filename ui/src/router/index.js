@@ -13,7 +13,7 @@ const routes = [
         component: () => import('@/views/Admin.vue')
     },
     {
-        path: '/bid:category?',
+        path: '/bid',
         name: 'bid',
         component: () => import('@/views/Bid.vue')
     },
