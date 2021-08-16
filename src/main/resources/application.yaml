@@ -1,0 +1,25 @@
+spring:
+
+  datasource:
+    username: valvik
+    password: valvik
+    url: jdbc:postgresql://localhost:5432/banners
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+
+cors:
+  allowed-origin: http://localhost:8090
+
+jwt:
+  secret-key: CmV5SmhiR2NpT2lKSVV6STFOaUo5LmV5SlNiMnhsSWpvaVFXUnRhVzRpTENKSmMzTjFaWElpT2lKSmMzTjFaWElpTENKVmMyVnlibUZ0WlNJNklrcGhkbUZKYmxWelpTSXNJbVY0Y0NJNk1UWXlOakkyTkRZNE15d2lhV0YwSWpveE5qSTJNalkwTmpnemZRLjBrbGVWY0ljcWZuUnB5Mzhaa3h2eDV6Q1o1NjNyWktER09Nb1pJb1M3LVU=
+  expiration-in-seconds: 300
+  
+

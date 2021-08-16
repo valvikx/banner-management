@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: postgres:alpine
+    container_name: bm-postgres
+    environment:
+      POSTGRES_DB: banners
+      POSTGRES_USER: valvik
+      POSTGRES_PASSWORD: valvik
+    volumes:
+      - ./src/main/resources/db/migration/:/flyway/sql
+    ports:
+    - "5432:5432"
+    restart: unless-stopped
+
+  migration:
+    image: flyway/flyway
+    container_name: bm-flyway
+    command: -url=jdbc:postgresql://db:5432/banners -user=valvik -password=valvik -connectRetries=60 migrate
+    volumes:
+      - ./migration:/flyway/sql
+    depends_on:
+      - db
+    restart: on-failure
+
+  backend:
+    build:
+      context: .
+      target: application-stage
+    image: valvikx/backend
+    container_name: bm-spring
+    environment:
+      - spring_datasource_url=jdbc:postgresql://db:5432/banners
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: always
+
+  ui:
+    build: ./ui
+    image: valvikx/ui
+    container_name: bm-vue
+    environment:
+      - VUE_APP_API_URL=valvikx://backend:8080
+    ports:
+      - "8090:8090"
+    depends_on:
+      - backend
+    restart: always
