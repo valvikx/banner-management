@@ -9,4 +9,3 @@ WORKDIR app
 COPY --from=build-stage /app/gradle/build/libs/banner-management-0.0.1-SNAPSHOT.jar /app
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/banner-management-0.0.1-SNAPSHOT.jar"]
-    
