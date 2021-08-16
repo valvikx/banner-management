@@ -28,6 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final int ENCODE_STRENGTH = 12;
 
+    private static final String AUTH_PATTERN = "/api/auth";
+
+    private static final String API_PATTERN = "/api/**";
+
     private final JwtProvider jwtProvider;
 
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -59,8 +63,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                     .and()
 
-                .authorizeRequests().antMatchers("/api/auth").permitAll()
-                                    .antMatchers(GET, "/api/**").permitAll()
+                .authorizeRequests().antMatchers(AUTH_PATTERN).permitAll()
+                                    .antMatchers(GET, API_PATTERN).permitAll()
                                     .anyRequest().authenticated()
 
                     .and()
