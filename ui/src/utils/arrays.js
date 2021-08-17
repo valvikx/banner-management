@@ -44,7 +44,8 @@ const sortArrayByName = arrays => arrays.sort((a, b) => {
 
 })
 
-const filterArrayByName = (arrays, { name }) => sortArrayByName(arrays.filter(item => item.name.search(name) !== -1))
+const filterArrayByName = (arrays, { name }) =>
+    sortArrayByName(arrays.filter(item => item.name.toLowerCase().includes(name.toLowerCase())))
 
 export { updateItemInArray,
          removeItemFromArray,

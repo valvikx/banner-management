@@ -90,7 +90,7 @@ import ItemSearch from "@/components/ItemSearch"
 import ListItems from "@/components/ListItems"
 import ActionButtons from "@/components/ActionButtons"
 
-import { onMounted, computed } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { useAppRouter } from '@/composition/appRouter'
 
