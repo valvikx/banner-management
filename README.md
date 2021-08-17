@@ -18,9 +18,11 @@ ECMAScript 2018 (ES9)
 | package manager | Yarn |
 | container | Docker |
 ## Run Application
+```bash
 git clone https://github.com/valvikx/banner-management.git banner-management  
 cd banner-management  
 docker-compose up
+```
 ## Start Endpoint
 http://localhost:8090
 ## Admin Credentials
