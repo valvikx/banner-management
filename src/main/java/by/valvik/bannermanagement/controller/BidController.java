@@ -51,8 +51,8 @@ public class BidController {
     @JsonView(View.Public.class)
     public ResponseEntity<Banner> getBannerContent(@RequestParam String category) {
 
-        HttpServletRequest httpServletRequest = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                .getRequest();
+        HttpServletRequest httpServletRequest =
+                ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 
         String ipAddress = httpServletRequest.getRemoteAddr();
 

@@ -73,7 +73,7 @@ public class Reflections {
         return Arrays.stream(obj.getClass().getDeclaredFields())
                      .filter(field -> field.isAnnotationPresent(UniqueValue.class))
                      .collect(toMap(Field::getName,
-                              field -> messageProvider.getMessage(field.getAnnotation(UniqueValue.class).value())));
+                                    field -> messageProvider.getMessage(field.getAnnotation(UniqueValue.class).value())));
 
     }
 

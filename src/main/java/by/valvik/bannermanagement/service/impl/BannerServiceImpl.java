@@ -14,6 +14,8 @@ import java.util.Optional;
 import java.util.Random;
 
 import static by.valvik.bannermanagement.util.Reflections.getEntityName;
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 
 @Service
 public class BannerServiceImpl extends GenericServiceImpl<Banner, BannerRepository>
@@ -38,7 +40,7 @@ public class BannerServiceImpl extends GenericServiceImpl<Banner, BannerReposito
     @Override
     public Banner create(Banner bannerFromClient) {
 
-        Category bannerCategoryFromDb = getBannerCategory(bannerFromClient);
+        Category bannerCategoryFromDb = getCategoryFromDb(bannerFromClient);
 
         bannerFromClient.setCategory(bannerCategoryFromDb);
 
@@ -51,9 +53,9 @@ public class BannerServiceImpl extends GenericServiceImpl<Banner, BannerReposito
     @Override
     public Banner update(Integer id, Banner bannerFromClient) {
 
-        Category bannerCategoryFromDb = getBannerCategory(bannerFromClient);
+        Category bannerCategoryFromDb = getCategoryFromDb(bannerFromClient);
 
-        Banner bannerFromDb = getAndCopy(id, bannerFromClient);
+        Banner bannerFromDb = getFromDbAndCopyProperties(id, bannerFromClient);
 
         bannerFromDb.setCategory(bannerCategoryFromDb);
 
@@ -81,20 +83,19 @@ public class BannerServiceImpl extends GenericServiceImpl<Banner, BannerReposito
 
         List<Banner> categoryBanners = getRepository().findAllWithMaxPrice(reqName, requestedBannerIds);
 
-        return categoryBanners.isEmpty() ? Optional.empty()
-                                         : Optional.of(categoryBanners.get(RANDOM.nextInt(categoryBanners.size())));
+        return categoryBanners.isEmpty() ? empty() : of(categoryBanners.get(RANDOM.nextInt(categoryBanners.size())));
 
     }
 
-    private Category getBannerCategory(Banner banner) {
+    private Category getCategoryFromDb(Banner banner) {
 
-        Category bannerCategoryFromClient = banner.getCategory();
+        Category categoryFromClient = banner.getCategory();
 
-        String categoryName = bannerCategoryFromClient.getName();
+        String categoryName = categoryFromClient.getName();
 
         return categoryRepository.findByName(categoryName)
                                  .orElseThrow(getErrorAction().onNotFound(categoryName,
-                                                                          getEntityName(bannerCategoryFromClient)));
+                                                                          getEntityName(categoryFromClient)));
 
     }
 

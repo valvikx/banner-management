@@ -50,7 +50,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R extends JpaRepo
 
     public E update(Integer id, E entityFromClient) {
 
-        E entityFromDb = getAndCopy(id, entityFromClient);
+        E entityFromDb = getFromDbAndCopyProperties(id, entityFromClient);
 
         return repository.save(entityFromDb);
 
@@ -74,7 +74,7 @@ public abstract class GenericServiceImpl<E extends BaseEntity, R extends JpaRepo
 
     }
 
-    public E getAndCopy(Integer id, E entityFromClient) {
+    public E getFromDbAndCopyProperties(Integer id, E entityFromClient) {
 
         E entityFromDb = getEntityFromDb(id);
 

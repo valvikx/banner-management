@@ -6,7 +6,6 @@ import by.valvik.bannermanagement.exception.ServiceException;
 import by.valvik.bannermanagement.message.MessageProvider;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
@@ -22,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @ControllerAdvice
 public class ErrorController {
@@ -37,7 +38,7 @@ public class ErrorController {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     public Map<Object, String> onConstraintValidationException(ConstraintViolationException e) {
 
@@ -48,7 +49,7 @@ public class ErrorController {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     public Map<String, String> onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 
@@ -60,7 +61,7 @@ public class ErrorController {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     public Map<String, String> onHttpMessageNotReadableException(HttpMessageNotReadableException e) {
 
@@ -76,7 +77,7 @@ public class ErrorController {
     }
 
     @ExceptionHandler(ServiceException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     public ErrorMessage onServiceException(ServiceException e) {
 
@@ -85,7 +86,7 @@ public class ErrorController {
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseStatus(UNAUTHORIZED)
     @ResponseBody
     public SecurityMessage onSecurityError(RuntimeException e) {
 
