@@ -1,7 +1,7 @@
 FROM gradle:jdk16 as build-stage
 COPY --chown=gradle:gradle . /app/gradle
 WORKDIR /app/gradle
-RUN ./gradlew clean build -x test
+RUN gradle clean build -x test
 
 FROM adoptopenjdk/openjdk16:alpine-slim as application-stage
 RUN mkdir /app
